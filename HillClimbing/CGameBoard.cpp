@@ -101,21 +101,32 @@ void CGameBoard::FirstBoard()
 
 void CGameBoard::DuplicateBoard(std::vector<std::vector<char>> currentBoard)
 {
+	int randRow = rand() % gameBoardSize;
+	int randCol = rand() % gameBoardSize;
+
 	for (int i = 0; i < gameBoardSize; i++)
 	{
 		for (int j = 0; j < gameBoardSize; j++)
 		{
-			gameBoard[i][j] = currentBoard[i][j];
+			if (i == randRow)
+			{
+				gameBoard[i][j] = '-';
+			}
+			else
+			{ 
+				gameBoard[i][j] = currentBoard[i][j];
+			}
 		}
 	}
 
-	int randCol = rand() % gameBoardSize;
+	// Randomly placing queen on a line
+	
+	gameBoard[randRow][randCol] = 'Q';
 
-	// Randomly placing queens on each row
-	for (int i = 0; i < gameBoardSize; i++)
-	{
-		gameBoard[randCol][i] = 'Q';
-	}
+
+	//std::cout << std::endl;
+	//PrintBoard();
+	//std::cout << std::endl;
 }
 
 void CGameBoard::PrintBoard()

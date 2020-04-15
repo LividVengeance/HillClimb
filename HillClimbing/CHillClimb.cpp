@@ -46,8 +46,7 @@ void CHillClimb::BoardIterations(CGameBoard* currentBoard)
 	{
 		if (newGendBoards[i]->GetHeuristic() < bestBoard->GetHeuristic())
 		{
-			delete bestBoard;
-			bestBoard = newGendBoards[i];
+			bestBoard = newGendBoards[i]; // Find way to delete old bestBoard
 		}
 	}
 
@@ -59,7 +58,6 @@ void CHillClimb::BoardIterations(CGameBoard* currentBoard)
 			delete newGendBoards[i];
 		}
 	}
-
 	// Regenerate new boards based on new best board
 	if (iterations < gameBoardSize)
 	{
