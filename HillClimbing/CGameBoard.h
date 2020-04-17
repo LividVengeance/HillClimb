@@ -13,7 +13,7 @@ public:
 	~CGameBoard();
 	 
 	void FirstBoard();
-	void DuplicateBoard(std::vector<std::vector<char>> currentBoard);
+	void AlteredBoard(std::vector<std::vector<char>> currentBoard);
 	int GetHeuristic();
 	void PrintBoard();
 

@@ -17,6 +17,7 @@ CHillClimb::CHillClimb(int boardSize)
 	CGameBoard* firstBoard = new CGameBoard(gameBoardSize);
 	firstBoard->FirstBoard();
 	std::cout << firstBoard->GetHeuristic() << " - First Solution" << std::endl;
+	// Set the first board to the best board
 	bestBoard = firstBoard;
 	BoardIterations(firstBoard);
 }
@@ -27,29 +28,31 @@ CHillClimb::~CHillClimb()
 
 void CHillClimb::BoardIterations(CGameBoard* currentBoard)
 {
-	CGameBoard* temp;
+	// Create a tempBoard so that when assigning bestBoard no memory leck
+	CGameBoard* tempBoard;
+
 	// Store all the new boards to be generated
 	std::vector<CGameBoard*> newGendBoards;
 
 	// Create all the new boards based on inputed board
 	for (int rowToChange = 0; rowToChange < gameBoardSize; rowToChange++)
 	{
+		// Create a new board
 		CGameBoard* newBoard = new CGameBoard(gameBoardSize);
-
-		newBoard->DuplicateBoard(currentBoard->gameBoard);
+		newBoard->AlteredBoard(currentBoard->gameBoard);
 
 		//Adding newBoard to newGendBoards
 		newGendBoards.push_back(newBoard);
 	}
 
-	temp = bestBoard;
+	tempBoard = bestBoard;
 
 	// Check all new boards generated at set if better
 	for (int i = 0; i < (int)newGendBoards.size(); i++)
 	{
 		if (newGendBoards[i]->GetHeuristic() < bestBoard->GetHeuristic())
 		{
-			bestBoard = newGendBoards[i]; // Find way to delete old bestBoard
+			bestBoard = newGendBoards[i];
 
 		}
 	}
@@ -63,12 +66,12 @@ void CHillClimb::BoardIterations(CGameBoard* currentBoard)
 		}
 	}
 
-	if (temp != bestBoard)
+	// Delete the tempBoard if its not the best board
+	if (tempBoard != bestBoard)
 	{
-		delete temp;
+		delete tempBoard;
 	}
 	
-	// Regenerate new boards based on new best board
 	if (iterations < gameBoardSize)
 	{
 		std::cout << bestBoard->GetHeuristic() << " - " << iterations << std::endl;

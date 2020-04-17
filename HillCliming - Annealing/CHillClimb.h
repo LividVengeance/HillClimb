@@ -18,7 +18,6 @@ public:
 	CGameBoard* bestBoard;
 
 private:
-	int iterations = 0;
 	int currentTemp = 1000;
 	void BoardIterations(CGameBoard* gameBoard);
 

@@ -16,6 +16,7 @@ struct Queens
 
 CGameBoard::CGameBoard(int boardSize)
 {
+	// Creates a board filled with '-' (Board with no queens)
 	std::vector<char>* temp;
 
 	for (int i = 0; i < boardSize; i++)
@@ -42,6 +43,7 @@ int CGameBoard::GetHeuristic()
 	std::vector<Queens> boardsQueens;
 	int attacks = 0;
 
+	// Sets each queen to have an x and y to evaluate later
 	for (int row = 0; row < gameBoardSize; row++)
 	{
 		for (int column = 0; column < gameBoardSize; column++)
@@ -86,6 +88,7 @@ int CGameBoard::GetHeuristic()
 			}
 		}
 	}
+	// returns the boards Heuristic
 	return(attacks);
 }
 
@@ -99,11 +102,12 @@ void CGameBoard::FirstBoard()
 	}
 }
 
-void CGameBoard::DuplicateBoard(std::vector<std::vector<char>> currentBoard)
+void CGameBoard::AlteredBoard(std::vector<std::vector<char>> currentBoard)
 {
 	int randRow = rand() % gameBoardSize;
 	int randCol = rand() % gameBoardSize;
 
+	// Clears the row to prevent added extra queen to the board
 	for (int i = 0; i < gameBoardSize; i++)
 	{
 		for (int j = 0; j < gameBoardSize; j++)
@@ -120,17 +124,12 @@ void CGameBoard::DuplicateBoard(std::vector<std::vector<char>> currentBoard)
 	}
 
 	// Randomly placing queen on a line
-
 	gameBoard[randRow][randCol] = 'Q';
-
-
-	//std::cout << std::endl;
-	//PrintBoard();
-	//std::cout << std::endl;
 }
 
 void CGameBoard::PrintBoard()
 {
+	// Prints the board to the console
 	for (int i = 0; i < gameBoardSize; i++)
 	{
 		for (int j = 0; j < gameBoardSize; j++)
